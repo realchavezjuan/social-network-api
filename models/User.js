@@ -32,9 +32,9 @@ const UserSchema = new Schema({
   }
 );
 
-// get total count of thoughts and replies on retrieval
+// get total count of thoughts and reactions on retrieval
 UserSchema.virtual('thoughtCount').get(function() {
-  return this.thoughts.reduce((total, thought) => total + thought.replies.length + 1, 0);
+  return this.thoughts.reduce((total, thought) => total + thought.reactions.length + 1, 0);
 });
 
 // create the User model using the PizzaSchema
