@@ -13,9 +13,10 @@ const UserSchema = new Schema({
       required: "you are required to insert your email",
       trim: true
     },
-    friends: {
-      
-    },
+    friends: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Users'
+    }],
     thoughts:[
       {
         type: Schema.Types.ObjectId,
@@ -37,7 +38,12 @@ UserSchema.virtual('thoughtCount').get(function() {
   return this.thoughts.reduce((total, thought) => total + thought.reactions.length + 1, 0);
 });
 
-// create the User model using the PizzaSchema
+// get total count of friends
+UserSchema.virtual('friendCount').get(function() {
+  return this.friends.length;
+})
+
+// create the User model using the UserSchema
 const User = model('User', UserSchema);
 
 // export the User model
